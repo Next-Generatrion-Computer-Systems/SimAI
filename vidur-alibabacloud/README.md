@@ -37,7 +37,7 @@ Vidur ([original](https://github.com/microsoft/vidur)) is a simulation framework
   - **Data Parallel (DP)**
   - **Tensor Parallel (TP)**
   - **Pipeline Parallel (PP)**
-  - **Expert Parallel (EP)** (support in progress)
+  - **Expert Parallel (EP)** (auto-set to cluster world_size, manual override not supported)
 
   Works for both **dense** and **Mixture-of-Experts (MoE)** models (MoE support in progress).
 - **Multiple Execution-Time Prediction Backends** — Choose from:
@@ -88,8 +88,8 @@ We gratefully acknowledge these resources for providing the foundational analysi
 
 ## Supported Models
 
-- **DeepSeek-V3-671B** (SimAI PP/EP communication and GPU memory allocation module adaptations in progress)
-- **Qwen3-MoE-235B**, **Qwen3-Next-80B** (SimAI PP/EP communication and GPU memory allocation module adaptations in progress)
+- **DeepSeek-V3-671B** (SimAI PP communication module in progress; EP auto-set to world_size; GPU memory management supported)
+- **Qwen3-MoE-235B**, **Qwen3-Next-80B** (SimAI PP communication module in progress; EP auto-set to world_size; GPU memory management supported)
 - **meta-llama/Meta-Llama-3-8B** / **Meta-Llama-3-70B**
 - **meta-llama/Llama-2-7b-hf** / **Llama-2-70b-hf**
 - **codellama/CodeLlama-34b-Instruct-hf**
@@ -187,7 +187,6 @@ python -m vidur.main --replica_config_pd_p2p_comm_bandwidth 800 \
   --replica_config_model_name deepseek-671B \
   --replica_config_tensor_parallel_size 2 \
   --replica_config_num_pipeline_stages 1 \
-  --replica_config_expert_model_parallel_size 8 \
   --random_forrest_execution_time_predictor_config_backend aicb
 ```
 
@@ -214,7 +213,6 @@ python -m vidur.main \
   --replica_config_model_name deepseek-671B \
   --replica_config_tensor_parallel_size 2 \
   --replica_config_num_pipeline_stages 1 \
-  --replica_config_expert_model_parallel_size 8 \
   --random_forrest_execution_time_predictor_config_backend aicb
 ```
 
@@ -252,7 +250,6 @@ python -m vidur.main \
   --replica_config_model_name meta-llama/Meta-Llama-3-8B \
   --replica_config_tensor_parallel_size 4 \
   --replica_config_num_pipeline_stages 1 \
-  --replica_config_expert_model_parallel_size 1 \
   --random_forrest_execution_time_predictor_config_backend simai_simulation \
   --random_forrest_execution_time_predictor_config_simai_dir ../ \
   --random_forrest_execution_time_predictor_config_simai_simulation_topo ../Spectrum-X_128g_8gps_100Gbps_A100 \
@@ -287,7 +284,6 @@ python -m vidur.main \
   --replica_config_model_name meta-llama/Meta-Llama-3-8B \
   --replica_config_tensor_parallel_size 4 \
   --replica_config_num_pipeline_stages 1 \
-  --replica_config_expert_model_parallel_size 1 \
   --random_forrest_execution_time_predictor_config_backend simai_analytical
 ```
 
@@ -314,7 +310,6 @@ python -m vidur.main \
   --replica_config_model_name meta-llama/Meta-Llama-3-8B \
   --replica_config_tensor_parallel_size 4 \
   --replica_config_num_pipeline_stages 1 \
-  --replica_config_expert_model_parallel_size 1 \
   --random_forrest_execution_time_predictor_config_backend vidur
 ```
 
@@ -339,12 +334,12 @@ The following scenarios are pre-configured in `run_scenarios.sh`. All scenarios 
 
 | Scenario | Model | PD Separation | World Size | TP | PP | EP | Global Scheduler |
 |----------|-------|---------------|------------|----|----|------------|------------------|
-| 1 | Qwen3-Next-80B (MoE) | No | 32 (dp=32) | 1 | 1 | 1 (default) | lor |
-| 2 | Qwen3-Next-80B (MoE) | Yes (P=2, D=6) | 8 | 1 | 1 | 1 (default) | split_wise |
-| 3 | DeepSeek-671B (MoE) | Yes (P=2, D=6) | 8 | 8 | 1 | 8 | split_wise |
-| 4 | Qwen3-MoE-235B (MoE) | Yes (P=2, D=6) | 8 | 4 | 1 | 4 | split_wise |
+| 1 | Qwen3-Next-80B (MoE) | No | 32 (dp=32) | 1 | 1 | auto (=world_size) | lor |
+| 2 | Qwen3-Next-80B (MoE) | Yes (P=2, D=6) | 8 | 1 | 1 | auto (=world_size) | split_wise |
+| 3 | DeepSeek-671B (MoE) | Yes (P=2, D=6) | 8 | 8 | 1 | auto (=world_size) | split_wise |
+| 4 | Qwen3-MoE-235B (MoE) | Yes (P=2, D=6) | 8 | 4 | 1 | auto (=world_size) | split_wise |
 
-> **Note:** All four models use Mixture-of-Experts (MoE) architecture. The EP column reflects the explicit `--replica_config_expert_model_parallel_size` value set in the script; scenarios without an explicit EP setting use the default value of 1.
+> **Note:** All four models use Mixture-of-Experts (MoE) architecture. EP is automatically set to the cluster world_size at runtime and cannot be manually overridden.
 
 #### Output Files
 
@@ -396,7 +391,7 @@ Each run produces the following directory:
 | `--replica_config_model_name` | meta-llama/Llama-2-7b-hf | Model name (DeepSeek-671B, Qwen3-MoE-235B, Qwen3-Next-80B, etc.) |
 | `--replica_config_tensor_parallel_size` | 1 | Tensor parallelism size (TP) |
 | `--replica_config_num_pipeline_stages` | 1 | Number of pipeline stages (PP) |
-| `--replica_config_expert_model_parallel_size` | 1 | Expert model parallelism size (EP) |
+| `--replica_config_expert_model_parallel_size` | 1 | Expert model parallelism size (EP) — auto-set to world_size internally. Passing a value != world_size raises ValueError. Manual override not recommended. |
 | `--random_forrest_execution_time_predictor_config_backend` | vidur | Backend for execution time prediction (`vidur`, `simai_simulation`, `simai_analytical`, `aicb`, etc.). **Note:** `simai_simulation` and `simai_analytical` currently only model TP communication and do not support pipeline or expert parallelism. |
 | `--random_forrest_execution_time_predictor_config_simai_dir` | `../` | Root directory of the SimAI simulator (only effective when backend = `simai_simulation`) |
 | `--random_forrest_execution_time_predictor_config_simai_simulation_topo` | `../example/topo` | Path to SimAI topology file (only effective when backend = `simai_simulation`) |

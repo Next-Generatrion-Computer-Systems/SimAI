@@ -18,8 +18,8 @@
 # 场景说明:
 #   1  Qwen3-Next-80B  无PD分离  ws=32 (dp=32, tp=1, pp=1, ep=32)     调度: lor
 #   2  Qwen3-Next-80B  PD分离    ws=8  (P=2, D=6, tp=1, pp=1)         调度: split_wise
-#   3  DeepSeek-671B   PD分离    ws=8  (P=2, D=6, tp=8, pp=1, ep=8)   调度: split_wise
-#   4  Qwen3-MoE-235B  PD分离    ws=8  (P=2, D=6, tp=4, pp=1, ep=4)   调度: split_wise
+#   3  DeepSeek-671B   PD分离    ws=8  (P=2, D=6, tp=8, pp=1, EP auto)  调度: split_wise
+#   4  Qwen3-MoE-235B  PD分离    ws=8  (P=2, D=6, tp=4, pp=1, EP auto)  调度: split_wise
 #
 # 环境要求:
 #   conda activate vidur
@@ -218,14 +218,14 @@ run_scenario_2() {
 # -----------------------------------------------------------------------
 # 场景 3: DeepSeek-671B PD分离
 #   总 replica=8; pd_node_ratio=0.25 → prefill dp=2, decode dp=6
-#   ws = tp(8) × pp(1) × dp = 16(P)/48(D)，ep = 8
+#   ws = tp(8) × pp(1) × dp = 16(P)/48(D)，EP auto-set to world_size
 #   调度: global=split_wise, replica=split_wise
 # -----------------------------------------------------------------------
 run_scenario_3() {
     local ts
     ts="$(date +%Y%m%d_%H%M%S)"
     local log_file="$LOG_DIR/scenario_3_${ts}.log"
-    echo "[INFO] === Scenario 3: DeepSeek-671B, PD, tp=8, ep=8, split_wise (场景3: PD分离, tp=8, ep=8) ==="
+    echo "[INFO] === Scenario 3: DeepSeek-671B, PD, tp=8, EP=auto, split_wise (场景3: PD分离, tp=8, EP=auto) ==="
     echo "[INFO] Log (日志): $log_file"
     cd "$VIDUR_ROOT"
     set +o pipefail
@@ -238,7 +238,6 @@ run_scenario_3() {
         --replica_config_model_name                    deepseek-671B \
         --replica_config_tensor_parallel_size          8 \
         --replica_config_num_pipeline_stages           1 \
-        --replica_config_expert_model_parallel_size    8 \
         2>&1 | tee "$log_file"
     local exit_code=${PIPESTATUS[0]}
     set -o pipefail
@@ -253,14 +252,14 @@ run_scenario_3() {
 # -----------------------------------------------------------------------
 # 场景 4: Qwen3-MoE-235B PD分离
 #   总 replica=8; pd_node_ratio=0.25 → prefill dp=2, decode dp=6
-#   ws = tp(4) × pp(1) × dp = 8(P)/24(D)，ep = 4
+#   ws = tp(4) × pp(1) × dp = 8(P)/24(D)，EP auto-set to world_size
 #   调度: global=split_wise, replica=split_wise
 # -----------------------------------------------------------------------
 run_scenario_4() {
     local ts
     ts="$(date +%Y%m%d_%H%M%S)"
     local log_file="$LOG_DIR/scenario_4_${ts}.log"
-    echo "[INFO] === Scenario 4: Qwen3-MoE-235B, PD, tp=4, ep=4, split_wise (场景4: PD分离, tp=4, ep=4) ==="
+    echo "[INFO] === Scenario 4: Qwen3-MoE-235B, PD, tp=4, EP=auto, split_wise (场景4: PD分离, tp=4, EP=auto) ==="
     echo "[INFO] Log (日志): $log_file"
     cd "$VIDUR_ROOT"
     set +o pipefail
@@ -273,7 +272,6 @@ run_scenario_4() {
         --replica_config_model_name                    qwen3-moe-235B \
         --replica_config_tensor_parallel_size          4 \
         --replica_config_num_pipeline_stages           1 \
-        --replica_config_expert_model_parallel_size    4 \
         2>&1 | tee "$log_file"
     local exit_code=${PIPESTATUS[0]}
     set -o pipefail
@@ -297,8 +295,8 @@ Usage (用法):
 Scenarios (场景列表):
   1  Qwen3-Next-80B  no PD (无PD分离)  ws=32             scheduler: lor
   2  Qwen3-Next-80B  PD (PD分离)      ws=8 (P=2,D=6)    scheduler: split_wise
-  3  DeepSeek-671B   PD (PD分离)      tp=8, ep=8         scheduler: split_wise
-  4  Qwen3-MoE-235B  PD (PD分离)      tp=4, ep=4         scheduler: split_wise
+  3  DeepSeek-671B   PD (PD分离)      tp=8, EP=auto     scheduler: split_wise
+  4  Qwen3-MoE-235B  PD (PD分离)      tp=4, EP=auto     scheduler: split_wise
 
 Output dir (输出目录): examples/vidur-ali-scenarios/simulator_output/<TIMESTAMP>/
 Log dir (日志目录): examples/vidur-ali-scenarios/logs/scenario_<N>_<TIMESTAMP>.log

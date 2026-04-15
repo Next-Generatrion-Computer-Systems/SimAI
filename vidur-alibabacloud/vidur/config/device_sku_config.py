@@ -30,7 +30,6 @@ class A100DeviceSKUConfig(BaseDeviceSKUConfig):
 
     @staticmethod
     def get_type():
-        # import pdb; pdb.set_trace() # >
         return DeviceSKUType.A100
 
 @dataclass
@@ -41,7 +40,6 @@ class H20DeviceSKUConfig(BaseDeviceSKUConfig):
 
     @staticmethod
     def get_type():
-        # import pdb; pdb.set_trace() # >
         return DeviceSKUType.H20
 
 
@@ -63,27 +61,3 @@ class H800DeviceSKUConfig(BaseDeviceSKUConfig):
     @staticmethod
     def get_type():
         return DeviceSKUType.H800
-
-# NOTE: untested, for reference only (未经测试，仅供参考)
-# @dataclass
-# class H200DeviceSKUConfig(BaseDeviceSKUConfig):
-#     fp16_tflops: int = 989
-#     fp8_tflops: int = 1979
-#     total_memory_gb: int = 141
-#
-#     @staticmethod
-#     def get_type():
-#         return DeviceSKUType.H200
-    
-
-# GB200 NVL72  
-# NOTE: untested, for reference only (未经测试，仅供参考)
-# @dataclass
-# class GB200DeviceSKUConfig(BaseDeviceSKUConfig):
-#     fp16_tflops: int = 2500
-#     fp8_tflops: int = 5000
-#     total_memory_gb: int = 192
-#
-#     @staticmethod
-#     def get_type():
-#         return DeviceSKUType.GB200

@@ -509,18 +509,16 @@ class ReplicaConfig:
     )
   
     # ============================================================
-    # [EP Auto] Auto-computed EP, user doesn't need to specify; user value will be overridden
-    # Temporary = tp * pp (per-replica), later overridden in cluster.py
-    # to tp * pp * dp (full cluster world_size)
-    # [EP Auto] EP 自动计算, 用户无需手动传, 传了也会被覆盖
-    # 临时值 = tp * pp (per-replica), 后续在 cluster.py 中
-    # 覆盖为 tp * pp * dp (全集群 world_size)
+    # [EP] EP 不支持手动指定。当前实现中 EP 会被自动覆盖为 cluster world_size
+    # (tp×pp×dp)，在 cluster.py 中执行覆盖。若用户传入的值 != world_size，
+    # 将抛出 ValueError。
+    # [EP] EP is not user-configurable. It is auto-set to cluster world_size
+    # (tp*pp*dp) in cluster.py. ValueError raised if user value != world_size.
     # ============================================================
     expert_model_parallel_size: int = field(
         default=1,
-        metadata={"help": "Degree of expert model parallelism. "
-                  "Auto-computed as cluster world_size (tp*pp*dp) in cluster.py, "
-                  "user-provided value will be overridden."},
+        metadata={"help": "Auto-set to world_size in cluster.py. "
+                  "User value != world_size raises ValueError."},
     )
 
     # ============================================================
@@ -565,19 +563,16 @@ class ReplicaConfig:
         self.world_size = self.num_pipeline_stages * self.tensor_parallel_size
         
         # ============================================================
-        # [EP] Temporary = tp * pp (per-replica), excluding dp
-        # Will be overridden in cluster.py to tp * pp * dp (full cluster world_size)
-        # Initialization only, printed value is for reference
-        # [EP] 临时值 = tp * pp (per-replica), 不含 dp
-        # 后续在 cluster.py 中会被覆盖为 tp * pp * dp (全集群 world_size)
-        # 这里只是初始化, 打印仅供参考
+        # [EP] Reject user-specified EP != world_size, then auto-set
+        # [EP] 拒绝用户传入的 EP != world_size，然后自动设置
         # ============================================================
-        user_ep = self.expert_model_parallel_size
-        self.expert_model_parallel_size = self.world_size  # Temporary, overridden in cluster.py / 临时值, cluster.py 会覆盖
-        if user_ep != 1 and user_ep != self.world_size:
-            logger.debug(f"[EP] Note: user-provided expert_model_parallel_size={user_ep}, "
-                   f"temporarily set to per-replica ws={self.world_size}, "
-                   f"final value will be overridden in cluster.py as tp*pp*dp")
+        if self.expert_model_parallel_size != 1 and self.expert_model_parallel_size != self.world_size:
+            raise ValueError(
+                f"EP 不支持手动指定。当前 EP={self.expert_model_parallel_size}，"
+                f"但 world_size={self.world_size}。EP 会在运行时自动设为 world_size。"
+                f"请移除 --replica_config_expert_model_parallel_size 参数或设为 {self.world_size}。"
+            )
+        self.expert_model_parallel_size = self.world_size  # Auto-set, overridden again in cluster.py / 自动设置, cluster.py 会再次覆盖
         
         # 打印 ReplicaConfig 配置摘要 | Print ReplicaConfig summary
         logger.debug(f"[ReplicaConfig] tp={self.tensor_parallel_size}, pp={self.num_pipeline_stages}, "
@@ -736,10 +731,15 @@ class BaseExecutionTimePredictorConfig(BasePolyConfig):
         metadata={"help": "Path to the simai config file."},
     )
     aicb_force_bs1: bool = field(
-        default=True,
-        metadata={"help": "AICB safe mode: always use bs=1 for CSV generation. "
-                  "Avoids per_token_group_quant_fp8 CUDA kernel incompatibility "
-                  "with bs>1 on some GPUs (e.g. H20). Set to False to use actual batch size."},
+        default=False,
+        metadata={"help": "AICB fallback switch: force bs=1 for CSV generation. "
+                  "Default OFF. "
+                  "Known limitation: DeepSeek-V3-671B prefill AICB profiling fails on "
+                  "H20 (SM90) when tp>=4, due to FlashMLA flash_mla_sparse_fwd kernel's "
+                  "h_q alignment requirement (B_H=64). This does not affect decode or "
+                  "other models. The simulator will automatically fall back when CSV is "
+                  "unavailable. Set to True only if you encounter CUDA errors during "
+                  "AICB profiling."},
     )
 
 

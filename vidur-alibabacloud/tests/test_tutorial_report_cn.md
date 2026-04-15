@@ -107,7 +107,6 @@ python -m vidur.main \
   --replica_config_model_name meta-llama/Meta-Llama-3-8B \
   --replica_config_tensor_parallel_size 4 \
   --replica_config_num_pipeline_stages 1 \
-  --replica_config_expert_model_parallel_size 1 \
   --random_forrest_execution_time_predictor_config_backend vidur
 ```
 
@@ -153,7 +152,6 @@ python -m vidur.main \
   --replica_config_model_name deepseek-671B \
   --replica_config_tensor_parallel_size 8 \
   --replica_config_num_pipeline_stages 1 \
-  --replica_config_expert_model_parallel_size 8 \
   --random_forrest_execution_time_predictor_config_backend aicb \
   --replica_config_device h20
 ```
@@ -167,7 +165,7 @@ python -m vidur.main \
 | 处理请求数 | 5 |
 | 集群配置 | 4 replicas, PD ratio=0.5 (2P+2D), H20 GPU |
 | 已知警告 | "AICB data is empty, using default execution time" — 预期行为 |
-| 注意事项 | README 示例使用 TP=2 EP=8 在 H20 上会 OOM, 需要 TP=8 + FP8 才能跑通 |
+| 注意事项 | EP 自动设为 world_size (=8)。DeepSeek-671B 在 H20 上需要 TP=8 + FP8 才能通过内存检查 |
 
 ### 4.3 GPU 内存分析
 
@@ -187,10 +185,10 @@ DeepSeek-671B 模型参数量极大, 在 H20 (141GB) 上需要较高的并行度
 
 | 场景 | 模型 | PD 分离 | 集群配置 | 调度策略 |
 |:---:|------|---------|---------|---------|
-| 1 | Qwen3-Next-80B | 否 (ratio=1) | 32 replicas, tp=1, pp=1, ep=32 | lor + sarathi |
-| 2 | Qwen3-Next-80B | 是 (P=2, D=6) | 8 replicas, tp=1, pp=1 | split_wise |
-| 3 | DeepSeek-671B | 是 (P=2, D=6) | 8 replicas, tp=8, pp=1, ep=8 | split_wise |
-| 4 | Qwen3-MoE-235B | 是 (P=2, D=6) | 8 replicas, tp=4, pp=1, ep=4 | split_wise |
+| 1 | Qwen3-Next-80B | 否 (ratio=1) | 32 replicas, tp=1, pp=1, EP=auto | lor + sarathi |
+| 2 | Qwen3-Next-80B | 是 (P=2, D=6) | 8 replicas, tp=1, pp=1, EP=auto | split_wise |
+| 3 | DeepSeek-671B | 是 (P=2, D=6) | 8 replicas, tp=8, pp=1, EP=auto | split_wise |
+| 4 | Qwen3-MoE-235B | 是 (P=2, D=6) | 8 replicas, tp=4, pp=1, EP=auto | split_wise |
 
 **公共参数**: H20 GPU, FP8, AICB 后端, Poisson QPS=100, 4 请求, prefill=100 tokens, decode=8 tokens
 
@@ -246,3 +244,133 @@ bash examples/vidur-ali-scenarios/run_scenarios.sh --scenario 1
 | GPU 内存 | DeepSeek-671B 在 H20 上需要 TP>=8 + FP8 才能通过内存检查 |
 | SimAI 构建 | SimAI Simulation/Analytical 模式需要额外编译步骤 |
 | seq_len=1 | KV cache 计算中 seq_len 硬编码为 1 (已知限制, 见 TODO 注释) |
+
+---
+
+## 附录 A: DeepSeek-V3-671B Prefill AICB Profiling 失败分析
+
+> 测试日期: 2026-04-15
+> 测试目的: 定位并验证 AICB 对 DeepSeek-V3-671B prefill 做 GPU kernel profiling 时的失败根因
+
+### A.1 问题描述
+
+AICB 使用 `--aiob_enable` 对 DeepSeek-V3-671B prefill 做 GPU kernel profiling 时，
+在 H20 (SM90) 上当 `tp>=4` 时运行崩溃，报错：
+
+```
+Assertion failed (/tmp/pip-req-build-gg88vm1n/csrc/sm90/prefill/sparse/fwd.cu:647): params.h_q % B_H == 0
+```
+
+DeepSeek-V3 有 128 个 attention heads (`num_attention_heads=128`)，
+AICB 按 `h_q = num_attention_heads / tp` 计算每个 TP rank 的 head 数量。
+当 tp>=4 时，h_q < 64，无法整除 FlashMLA 的 tile 常量 B_H=64。
+
+### A.2 FlashMLA 官方依据
+
+FlashMLA 的 SM90 prefill sparse kernel 在编译时定义 `B_H = 64`（对应 SM90 WGMMA 64×64 tile），
+运行时要求 `params.h_q % B_H == 0`，否则触发 CUDA 断言失败。
+
+- 源码位置: [`csrc/sm90/prefill/sparse/config.h`](https://github.com/deepseek-ai/FlashMLA/blob/main/csrc/sm90/prefill/sparse/config.h) — `B_H = 64` 编译时常量
+- 断言位置: `csrc/sm90/prefill/sparse/fwd.cu:647` — `params.h_q % B_H == 0`
+- FlashMLA 版本: `1.0.0+1408756` (pip install)
+
+### A.3 完整调用栈
+
+```
+Vidur (vidur.main)
+  └── RandomForrestExecutionTimePredictor
+        └── ExecutionTimeSeries._generate_aicb_csv()
+              └── subprocess: python -m workload_generator.Vidur_workload_generator
+                    └── AiobDeepSeek (prefill phase)
+                          └── flash_mla.flash_mla_sparse_fwd()
+                                └── SM90 CUDA kernel (fwd.cu:647)
+                                      └── ASSERTION FAILED: params.h_q % B_H == 0
+```
+
+### A.4 完整验证矩阵
+
+**Prefill 测试 (DeepSeek-V3-671B, seq=1024)**
+
+| tp | h_q=128/tp | bs=1 | bs=2 | bs=4 | bs=8 | 结论 |
+|----|-----------|------|------|------|------|------|
+| 1 | 128 | ✅ | ✅ | ✅ | ✅ | h_q=128, 128%64=0, 全部通过 |
+| 2 | 64 | ✅ | ✅ | ✅ | ✅ | h_q=64, 64%64=0, 边界值通过 |
+| 4 | 32 | ❌ | ❌ | ❌ | — | h_q=32, 32%64≠0, 全部失败 |
+| 8 | 16 | ❌ | ❌ | ❌ | — | h_q=16, 16%64≠0, 全部失败 |
+
+**关键结论**: 失败完全由 tp 决定（h_q 对齐），与 bs 无关。tp=1/2 下 bs=2/4/8 全部通过，
+tp=4/8 下即使 bs=1 也会失败。之前 "bs>1 fails" 的描述不准确。
+
+**Decode 测试 (不受影响验证)**
+
+| 测试 | tp | bs | 预期 | 实际 | 说明 |
+|------|-----|-----|------|------|------|
+| tp=8 decode | 8 | 2 | PASS | **PASS** | decode 路径使用不同 kernel，不受 B_H 限制 |
+
+**测试命令示例:**
+
+```bash
+# tp=1 prefill (PASS)
+cd aicb && conda run -n vidur python -m workload_generator.Vidur_workload_generator \
+  DeepSeek-671B ./scripts/inference_configs/deepseek_default.json \
+  --seq_length 1024 --micro_batch 1 --world_size 1 \
+  --tensor_model_parallel_size 1 --expert_model_parallel_size 1 \
+  --aiob_enable --phase prefill
+
+# tp=4 prefill (FAIL — h_q=32, 32%64≠0)
+cd aicb && conda run -n vidur python -m workload_generator.Vidur_workload_generator \
+  DeepSeek-671B ./scripts/inference_configs/deepseek_default.json \
+  --seq_length 1024 --micro_batch 1 --world_size 4 \
+  --tensor_model_parallel_size 4 --expert_model_parallel_size 4 \
+  --aiob_enable --phase prefill
+
+# tp=8 decode (PASS — decode uses different kernel)
+cd aicb && conda run -n vidur python -m workload_generator.Vidur_workload_generator \
+  DeepSeek-671B ./scripts/inference_configs/deepseek_default.json \
+  --seq_length 1024 --micro_batch 2 --world_size 8 \
+  --tensor_model_parallel_size 8 --expert_model_parallel_size 8 \
+  --aiob_enable --phase decode
+```
+
+### A.5 Vidur 降级路径验证
+
+使用 DeepSeek-671B tp=8 PD 分离配置运行完整 Vidur 模拟 (场景 3 类似配置):
+
+| 项目 | 结果 |
+|------|------|
+| 退出码 | 0 (成功) |
+| 请求数 | 3/3 完成 |
+| PD 分离 | 正常 (prefill replica 0/1, decode replica 2/3) |
+| 执行时间数据 | 完整 (request_e2e_time, execution_time 等均有值) |
+| 结果文件 | request_metrics.csv, config.json, chrome_trace.json |
+
+结论: Vidur 在 AICB prefill profiling 受限的情况下仍能正常完成模拟，降级路径可靠。
+
+### A.6 适用范围
+
+此问题**仅影响**以下特定组合:
+
+- **GPU**: H20 (SM90 架构)
+- **模型**: DeepSeek-V3-671B (num_attention_heads=128)
+- **阶段**: prefill (使用 `flash_mla_sparse_fwd` kernel)
+- **并行度**: tp >= 4 (h_q = 128/tp < 64)
+
+**不受影响**:
+- 其他 GPU 架构 (非 SM90)
+- 其他模型 (Qwen3-MoE-235B, Qwen3-Next-80B 等)
+- Decode 阶段 (使用不同的 attention kernel)
+- tp <= 2 的配置 (h_q >= 64, 满足对齐要求)
+
+### A.7 测试环境
+
+| 项目 | 版本 |
+|------|------|
+| GPU | NVIDIA H20-3e × 8 (143771 MiB each) |
+| GPU Driver | 570.133.20 |
+| CUDA | 12.9 |
+| Python | 3.10.19 (vidur conda env) |
+| PyTorch | 2.8.0 |
+| FlashMLA | 1.0.0+1408756 |
+| FlashInfer | 0.2.5 |
+| AICB | commit `23eec3c48ca2d2d93dd888a4c7b22ab4421e782f` |
+| conda env | vidur |

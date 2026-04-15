@@ -180,10 +180,10 @@ Any use of third-party trademarks or logos are subject to those third-party's po
 
 | 场景 | 模型 | ws | TP | PP | EP | PD分离 | 调度器 |
 |------|------|----|----|----|-----|--------|--------|
-| 1 | Qwen3-Next-80B | 32 | 1 | 1 | 32 | 否 | lor |
-| 2 | Qwen3-Next-80B | 8 (P=2,D=6) | 1 | 1 | auto | 是 | split_wise |
-| 3 | DeepSeek-671B  | 8 (P=2,D=6) | 8 | 1 | 8  | 是 | split_wise |
-| 4 | Qwen3-MoE-235B | 8 (P=2,D=6) | 4 | 1 | 4  | 是 | split_wise |
+| 1 | Qwen3-Next-80B | 32 | 1 | 1 | auto (=ws) | 否 | lor |
+| 2 | Qwen3-Next-80B | 8 (P=2,D=6) | 1 | 1 | auto (=ws) | 是 | split_wise |
+| 3 | DeepSeek-671B  | 8 (P=2,D=6) | 8 | 1 | auto (=ws) | 是 | split_wise |
+| 4 | Qwen3-MoE-235B | 8 (P=2,D=6) | 4 | 1 | auto (=ws) | 是 | split_wise |
 
 ### 使用方法
 
@@ -266,7 +266,7 @@ python -m vidur.main \
     --replica_config_decode_num_pipeline_stages 1
 ```
 
-**场景 3: DeepSeek-671B PD分离 (tp=8, ep=8, split_wise)**
+**场景 3: DeepSeek-671B PD分离 (tp=8, EP=auto, split_wise)**
 
 ```sh
 python -m vidur.main \
@@ -292,11 +292,10 @@ python -m vidur.main \
     --replica_scheduler_config_type split_wise \
     --replica_config_model_name deepseek-671B \
     --replica_config_tensor_parallel_size 8 \
-    --replica_config_num_pipeline_stages 1 \
-    --replica_config_expert_model_parallel_size 8
+    --replica_config_num_pipeline_stages 1
 ```
 
-**场景 4: Qwen3-MoE-235B PD分离 (tp=4, ep=4, split_wise)**
+**场景 4: Qwen3-MoE-235B PD分离 (tp=4, EP=auto, split_wise)**
 
 ```sh
 python -m vidur.main \
@@ -322,6 +321,5 @@ python -m vidur.main \
     --replica_scheduler_config_type split_wise \
     --replica_config_model_name qwen3-moe-235B \
     --replica_config_tensor_parallel_size 4 \
-    --replica_config_num_pipeline_stages 1 \
-    --replica_config_expert_model_parallel_size 4
+    --replica_config_num_pipeline_stages 1
 ```

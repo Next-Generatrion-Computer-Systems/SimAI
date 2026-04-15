@@ -770,11 +770,13 @@ class ExecutionTime(BaseEntity):
         [AICB Safe Mode] Always use bs=1 to generate or find CSV.
         [AICB Safe Mode] 始终使用 bs=1 生成或查找 CSV
         
-        Reason: AICB's per_token_group_quant_fp8 CUDA kernel is incompatible
-        with bs>1 on some GPUs (e.g. H20), causing "CUDA error: invalid
-        configuration argument".
-        原因: AICB 的 per_token_group_quant_fp8 等 CUDA kernel 在某些 GPU
-        (如 H20) 上对 bs>1 不兼容
+        Reason: DeepSeek-V3-671B prefill AICB profiling fails on H20 (SM90)
+        when tp>=4, due to FlashMLA `flash_mla_sparse_fwd` kernel's h_q
+        alignment requirement (B_H=64). This does not affect decode or
+        other models.
+        原因: DeepSeek-V3-671B prefill 在 H20 (SM90) 上当 tp>=4 时 AICB
+        profiling 失败，因 FlashMLA flash_mla_sparse_fwd kernel 的 h_q
+        对齐要求 (B_H=64)。不影响 decode 或其他模型。
         
         Strategy / 策略:
           1. If requested bs=1, generate directly / 如果请求的就是 bs=1, 直接生成
@@ -885,7 +887,7 @@ class ExecutionTime(BaseEntity):
         
         # === Step 3: Cache miss, need to read/generate CSV ===
         # === 步骤3: 缓存未命中，需要读取/生成CSV ===
-        print(f"[AICB] Cache miss, loading CSV (缓存未命中，需要加载CSV): "
+        logger.debug(f"[AICB] Cache miss, loading CSV (缓存未命中，需要加载CSV): "
               f"model={model_name}, bs={bs}, seq={seq}, phase={phase}")
         
         csv_path = self._get_aicb_csv_path()
@@ -893,10 +895,12 @@ class ExecutionTime(BaseEntity):
 
         if not os.path.exists(full_csv_path):
             if self._config.aicb_force_bs1:
-                # [AICB Safe Mode] Always use bs=1 to generate/find CSV
-                # Reason: AICB's per_token_group_quant_fp8 CUDA kernel
-                #         is incompatible with bs>1 on some GPUs (e.g. H20)
-                # Strategy: Use bs=1 CSV (per-token time is independent of batch size)
+                # [AICB Fallback] User explicitly enabled force-bs1 mode
+                # This forces bs=1 CSV generation regardless of actual batch size.
+                # Known issue: DeepSeek-V3-671B prefill AICB profiling fails on H20
+                # (SM90) when tp>=4, due to FlashMLA flash_mla_sparse_fwd kernel's
+                # h_q alignment requirement (B_H=64). Does not affect decode or
+                # other models.
                 full_csv_path = self._generate_or_find_bs1_csv(
                     model_name, ws, tp, pp, ep, bs, seq, phase, full_csv_path
                 )
