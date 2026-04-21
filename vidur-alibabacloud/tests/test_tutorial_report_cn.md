@@ -295,11 +295,15 @@ Vidur (vidur.main)
 |----|-----------|------|------|------|------|------|
 | 1 | 128 | ✅ | ✅ | ✅ | ✅ | h_q=128, 128%64=0, 全部通过 |
 | 2 | 64 | ✅ | ✅ | ✅ | ✅ | h_q=64, 64%64=0, 边界值通过 |
-| 4 | 32 | ❌ | ❌ | ❌ | — | h_q=32, 32%64≠0, 全部失败 |
-| 8 | 16 | ❌ | ❌ | ❌ | — | h_q=16, 16%64≠0, 全部失败 |
+| 4 | 32 | ❌ | ❌ | ❌ | ❌ | h_q=32, 32%64≠0, 全部失败 |
+| 8 | 16 | ❌ | ❌ | ❌ | ❌ | h_q=16, 16%64≠0, 全部失败 |
 
-**关键结论**: 失败完全由 tp 决定（h_q 对齐），与 bs 无关。tp=1/2 下 bs=2/4/8 全部通过，
-tp=4/8 下即使 bs=1 也会失败。之前 "bs>1 fails" 的描述不准确。
+> **bs=8 补测说明** (2026-04-21): tp=4/8 的 bs=8 已补测验证，错误签名与 bs=1/2/4 完全一致
+> (`params.h_q % B_H == 0`)，确认失败原因相同。原 "—" 标记已替换为实际测试结果 ❌。
+> 详细实验日志见附录 A.9。
+
+**关键结论**: 失败完全由 tp 决定（h_q 对齐），与 bs 无关。tp=1/2 下 bs=1/2/4/8 全部通过，
+tp=4/8 下 bs=1/2/4/8 全部失败。矩阵中所有格子均已实测验证，无未解释标记。
 
 **Decode 测试 (不受影响验证)**
 
@@ -367,10 +371,116 @@ cd aicb && conda run -n vidur python -m workload_generator.Vidur_workload_genera
 |------|------|
 | GPU | NVIDIA H20-3e × 8 (143771 MiB each) |
 | GPU Driver | 570.133.20 |
-| CUDA | 12.9 |
+| CUDA | 12.8 |
 | Python | 3.10.19 (vidur conda env) |
-| PyTorch | 2.8.0 |
-| FlashMLA | 1.0.0+1408756 |
+| PyTorch | 2.8.0+cu128 |
+| FlashMLA | 1.0.0+1408756 (pinned commit `1408756a88e52a25196b759eaf8db89d2b51b5a1`) |
 | FlashInfer | 0.2.5 |
 | AICB | commit `23eec3c48ca2d2d93dd888a4c7b22ab4421e782f` |
+| vLLM | 0.11.0 |
 | conda env | vidur |
+
+### A.8 FlashMLA `h_q % B_H` 约束分析
+
+> 补充日期: 2026-04-21
+
+#### 第一层: AICB pinned 版本中的事实
+
+| 组件 | 版本 | 关键代码位置 |
+|------|------|-------------|
+| FlashMLA | 1.0.0+1408756 | `csrc/sm90/prefill/sparse/config.h` → `B_H = 64` |
+| AICB | 23eec3c | `AiobDeepSeek.py:182` → `h_q = self.num_heads // self.tp` |
+| vLLM | 0.11.0 | `requirements.txt` pinned 依赖 |
+
+**约束逻辑**: FlashMLA 的 SM90 prefill sparse kernel 以 `B_H=64` 为 WGMMA tile 大小，
+运行时要求 `params.h_q % B_H == 0`。AICB 按 `h_q = num_attention_heads / tp` 计算每个
+TP rank 的 head 数量。对于 DeepSeek-V3 (`num_attention_heads=128`):
+
+| tp | h_q | h_q % 64 | 结果 |
+|----|-----|----------|------|
+| 1 | 128 | 0 | PASS |
+| 2 | 64 | 0 | PASS |
+| 4 | 32 | 32 | FAIL |
+| 8 | 16 | 16 | FAIL |
+
+#### 第二层: 上游最新版本观察
+
+- FlashMLA main 分支 (截至 2026-04-21): `B_H=64` 未变 (`config.h`)
+- 代码结构重构: 断言从 `fwd.cu:647` 移至 `phase1.cuh`，但约束逻辑不变
+- 上游 PR #150 (2026-01-16) 做了多处重构，但 B_H 值未修改
+
+**结论**: 上游最新版本仍有此约束，非 pinned 版本特有问题。
+
+#### 第三层: 仿真与真实一致性
+
+- AICB 的 `h_q = num_heads // tp` 与真实 vLLM 推理时的 head 分配逻辑一致
+- 真实 vLLM 在 tp>=4 时也会触发同样的 FlashMLA 断言
+- **结论**: 仿真行为 = 真实行为（都会触发），仿真是准确的
+
+### A.9 bs=8 补测实验日志 (2026-04-21)
+
+> 补测目的: 消除 A.4 验证矩阵中 tp=4/8 bs=8 的 "—" 标记，并验证 Qwen3-Next-80B bs=8
+
+#### Case 1: Qwen3-Next-80B prefill tp=1 bs=8 — PASS
+
+```bash
+# 命令
+cd aicb && conda run -n vidur python -m workload_generator.Vidur_workload_generator \
+  Qwen3-Next-80B ./scripts/inference_configs/qwen3_next_default.json \
+  --seq_length 1024 --micro_batch 8 --world_size 1 \
+  --tensor_model_parallel_size 1 --expert_model_parallel_size 1 \
+  --aiob_enable --phase prefill
+```
+
+- **退出码**: 0 (成功)
+- **输出**: `results/workload/vidur-Qwen3-Next-80B-world_size1-tp1-pp1-ep1-bs8-seq1024-prefill`
+- **说明**: Qwen3-Next-80B 使用 FlashInfer (非 FlashMLA)，不受 B_H=64 约束
+
+#### Case 2: DeepSeek-671B prefill tp=4 bs=8 — FAIL
+
+```bash
+# 命令
+cd aicb && conda run -n vidur python -m workload_generator.Vidur_workload_generator \
+  DeepSeek-671B ./scripts/inference_configs/deepseek_default.json \
+  --seq_length 1024 --micro_batch 8 --world_size 4 \
+  --tensor_model_parallel_size 4 --expert_model_parallel_size 4 \
+  --aiob_enable --phase prefill
+```
+
+- **退出码**: 1 (失败)
+- **错误签名**:
+  ```
+  Assertion failed (/tmp/pip-req-build-gg88vm1n/csrc/sm90/prefill/sparse/fwd.cu:647): params.h_q % B_H == 0
+  ```
+- **根因**: h_q = 128/4 = 32, 32 % 64 ≠ 0
+- **与 bs=1/2/4 一致**: 错误签名完全相同，确认失败由 tp 决定
+
+#### Case 3: DeepSeek-671B prefill tp=8 bs=8 — FAIL
+
+```bash
+# 命令
+cd aicb && conda run -n vidur python -m workload_generator.Vidur_workload_generator \
+  DeepSeek-671B ./scripts/inference_configs/deepseek_default.json \
+  --seq_length 1024 --micro_batch 8 --world_size 8 \
+  --tensor_model_parallel_size 8 --expert_model_parallel_size 8 \
+  --aiob_enable --phase prefill
+```
+
+- **退出码**: 1 (失败)
+- **错误签名**:
+  ```
+  Assertion failed (/tmp/pip-req-build-gg88vm1n/csrc/sm90/prefill/sparse/fwd.cu:647): params.h_q % B_H == 0
+  ```
+- **根因**: h_q = 128/8 = 16, 16 % 64 ≠ 0
+- **与 bs=1/2/4 一致**: 错误签名完全相同，确认失败由 tp 决定
+
+#### 补测结论
+
+| Case | 模型 | tp | bs | 预期 | 实际 | 匹配 |
+|------|------|----|----|------|------|------|
+| 1 | Qwen3-Next-80B | 1 | 8 | PASS | PASS | ✅ |
+| 2 | DeepSeek-671B | 4 | 8 | FAIL | FAIL | ✅ |
+| 3 | DeepSeek-671B | 8 | 8 | FAIL | FAIL | ✅ |
+
+全部 3 个补测 case 与预期一致。A.4 验证矩阵已更新为完整实测结果。
+
