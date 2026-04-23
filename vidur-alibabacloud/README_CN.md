@@ -340,6 +340,147 @@ bash examples/vidur-ali-scenarios/run_scenarios.sh --all
 
 > **说明：** 四个模型均使用混合专家（MoE）架构。EP 在运行时自动设为 cluster world_size，不支持手动指定。
 
+#### run_scenarios.sh 使用方法
+
+```bash
+# 激活环境
+conda activate vidur
+
+# 运行单个场景（1~4）
+bash examples/vidur-ali-scenarios/run_scenarios.sh --scenario 1
+
+# 顺序运行所有场景
+bash examples/vidur-ali-scenarios/run_scenarios.sh --all
+
+# 查看帮助
+bash examples/vidur-ali-scenarios/run_scenarios.sh --help
+```
+
+#### 手动运行命令（逐场景）
+
+以下为四个场景的完整 CLI 命令，可直接复制运行。所有命令均在 `vidur-alibabacloud/` 目录下执行。
+
+**场景 1：Qwen3-Next-80B 无PD分离（ws=32, lor）**
+
+```bash
+python -m vidur.main \
+    --replica_config_pd_p2p_comm_bandwidth 800 \
+    --replica_config_nvlink_bandwidth 1600 \
+    --replica_config_rdma_bandwidth 800 \
+    --replica_config_pd_p2p_comm_dtype fp8 \
+    --replica_config_network_device h20_dgx \
+    --replica_config_device h20 \
+    --request_generator_config_type synthetic \
+    --interval_generator_config_type poisson \
+    --poisson_request_interval_generator_config_qps 100 \
+    --synthetic_request_generator_config_num_requests 4 \
+    --length_generator_config_type fixed \
+    --fixed_request_length_generator_config_prefill_tokens 100 \
+    --fixed_request_length_generator_config_decode_tokens 8 \
+    --trace_request_length_generator_config_trace_file ./data/processed_traces/splitwise_conv.csv \
+    --random_forrest_execution_time_predictor_config_backend aicb \
+    --metrics_config_output_dir examples/vidur-ali-scenarios/simulator_output \
+    --cluster_config_num_replicas 32 \
+    --replica_config_pd_node_ratio 1 \
+    --global_scheduler_config_type lor \
+    --replica_scheduler_config_type sarathi \
+    --replica_config_model_name qwen3-next-80B \
+    --replica_config_tensor_parallel_size 1 \
+    --replica_config_num_pipeline_stages 1
+```
+
+**场景 2：Qwen3-Next-80B PD分离（P=2, D=6, split_wise）**
+
+```bash
+python -m vidur.main \
+    --replica_config_pd_p2p_comm_bandwidth 800 \
+    --replica_config_nvlink_bandwidth 1600 \
+    --replica_config_rdma_bandwidth 800 \
+    --replica_config_pd_p2p_comm_dtype fp8 \
+    --replica_config_network_device h20_dgx \
+    --replica_config_device h20 \
+    --request_generator_config_type synthetic \
+    --interval_generator_config_type poisson \
+    --poisson_request_interval_generator_config_qps 100 \
+    --synthetic_request_generator_config_num_requests 4 \
+    --length_generator_config_type fixed \
+    --fixed_request_length_generator_config_prefill_tokens 100 \
+    --fixed_request_length_generator_config_decode_tokens 8 \
+    --trace_request_length_generator_config_trace_file ./data/processed_traces/splitwise_conv.csv \
+    --random_forrest_execution_time_predictor_config_backend aicb \
+    --metrics_config_output_dir examples/vidur-ali-scenarios/simulator_output \
+    --cluster_config_num_replicas 8 \
+    --replica_config_pd_node_ratio 0.25 \
+    --replica_config_num_prefill_replicas 2 \
+    --global_scheduler_config_type split_wise \
+    --replica_scheduler_config_type split_wise \
+    --replica_config_model_name qwen3-next-80B \
+    --replica_config_tensor_parallel_size 1 \
+    --replica_config_num_pipeline_stages 1 \
+    --replica_config_prefill_tensor_parallel_size 1 \
+    --replica_config_prefill_num_pipeline_stages 1 \
+    --replica_config_decode_tensor_parallel_size 1 \
+    --replica_config_decode_num_pipeline_stages 1
+```
+
+**场景 3：DeepSeek-671B PD分离（tp=8, EP=auto, split_wise）**
+
+```bash
+python -m vidur.main \
+    --replica_config_pd_p2p_comm_bandwidth 800 \
+    --replica_config_nvlink_bandwidth 1600 \
+    --replica_config_rdma_bandwidth 800 \
+    --replica_config_pd_p2p_comm_dtype fp8 \
+    --replica_config_network_device h20_dgx \
+    --replica_config_device h20 \
+    --request_generator_config_type synthetic \
+    --interval_generator_config_type poisson \
+    --poisson_request_interval_generator_config_qps 100 \
+    --synthetic_request_generator_config_num_requests 4 \
+    --length_generator_config_type fixed \
+    --fixed_request_length_generator_config_prefill_tokens 100 \
+    --fixed_request_length_generator_config_decode_tokens 8 \
+    --trace_request_length_generator_config_trace_file ./data/processed_traces/splitwise_conv.csv \
+    --random_forrest_execution_time_predictor_config_backend aicb \
+    --metrics_config_output_dir examples/vidur-ali-scenarios/simulator_output \
+    --cluster_config_num_replicas 8 \
+    --replica_config_pd_node_ratio 0.25 \
+    --global_scheduler_config_type split_wise \
+    --replica_scheduler_config_type split_wise \
+    --replica_config_model_name deepseek-671B \
+    --replica_config_tensor_parallel_size 8 \
+    --replica_config_num_pipeline_stages 1
+```
+
+**场景 4：Qwen3-MoE-235B PD分离（tp=4, EP=auto, split_wise）**
+
+```bash
+python -m vidur.main \
+    --replica_config_pd_p2p_comm_bandwidth 800 \
+    --replica_config_nvlink_bandwidth 1600 \
+    --replica_config_rdma_bandwidth 800 \
+    --replica_config_pd_p2p_comm_dtype fp8 \
+    --replica_config_network_device h20_dgx \
+    --replica_config_device h20 \
+    --request_generator_config_type synthetic \
+    --interval_generator_config_type poisson \
+    --poisson_request_interval_generator_config_qps 100 \
+    --synthetic_request_generator_config_num_requests 4 \
+    --length_generator_config_type fixed \
+    --fixed_request_length_generator_config_prefill_tokens 100 \
+    --fixed_request_length_generator_config_decode_tokens 8 \
+    --trace_request_length_generator_config_trace_file ./data/processed_traces/splitwise_conv.csv \
+    --random_forrest_execution_time_predictor_config_backend aicb \
+    --metrics_config_output_dir examples/vidur-ali-scenarios/simulator_output \
+    --cluster_config_num_replicas 8 \
+    --replica_config_pd_node_ratio 0.25 \
+    --global_scheduler_config_type split_wise \
+    --replica_scheduler_config_type split_wise \
+    --replica_config_model_name qwen3-moe-235B \
+    --replica_config_tensor_parallel_size 4 \
+    --replica_config_num_pipeline_stages 1
+```
+
 #### 输出文件说明
 
 **输出路径取决于运行方式：**

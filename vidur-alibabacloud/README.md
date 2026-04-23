@@ -341,6 +341,145 @@ The following scenarios are pre-configured in `run_scenarios.sh`. All scenarios 
 
 > **Note:** All four models use Mixture-of-Experts (MoE) architecture. EP is automatically set to the cluster world_size at runtime and cannot be manually overridden.
 
+#### Usage
+
+```bash
+# Activate environment
+conda activate vidur
+
+# Run a single scenario (1~4)
+bash examples/vidur-ali-scenarios/run_scenarios.sh --scenario 1
+
+# Run all scenarios sequentially
+bash examples/vidur-ali-scenarios/run_scenarios.sh --all
+
+# Show help
+bash examples/vidur-ali-scenarios/run_scenarios.sh --help
+```
+
+#### Manual Commands (Per Scenario)
+
+**Scenario 1: Qwen3-Next-80B without PD Disaggregation (ws=32, lor)**
+
+```bash
+python -m vidur.main \
+    --replica_config_pd_p2p_comm_bandwidth 800 \
+    --replica_config_nvlink_bandwidth 1600 \
+    --replica_config_rdma_bandwidth 800 \
+    --replica_config_pd_p2p_comm_dtype fp8 \
+    --replica_config_network_device h20_dgx \
+    --replica_config_device h20 \
+    --request_generator_config_type synthetic \
+    --interval_generator_config_type poisson \
+    --poisson_request_interval_generator_config_qps 100 \
+    --synthetic_request_generator_config_num_requests 4 \
+    --length_generator_config_type fixed \
+    --fixed_request_length_generator_config_prefill_tokens 100 \
+    --fixed_request_length_generator_config_decode_tokens 8 \
+    --trace_request_length_generator_config_trace_file ./data/processed_traces/splitwise_conv.csv \
+    --random_forrest_execution_time_predictor_config_backend aicb \
+    --metrics_config_output_dir examples/vidur-ali-scenarios/simulator_output \
+    --cluster_config_num_replicas 32 \
+    --replica_config_pd_node_ratio 1 \
+    --global_scheduler_config_type lor \
+    --replica_scheduler_config_type sarathi \
+    --replica_config_model_name qwen3-next-80B \
+    --replica_config_tensor_parallel_size 1 \
+    --replica_config_num_pipeline_stages 1
+```
+
+**Scenario 2: Qwen3-Next-80B with PD Disaggregation (P=2, D=6, split_wise)**
+
+```bash
+python -m vidur.main \
+    --replica_config_pd_p2p_comm_bandwidth 800 \
+    --replica_config_nvlink_bandwidth 1600 \
+    --replica_config_rdma_bandwidth 800 \
+    --replica_config_pd_p2p_comm_dtype fp8 \
+    --replica_config_network_device h20_dgx \
+    --replica_config_device h20 \
+    --request_generator_config_type synthetic \
+    --interval_generator_config_type poisson \
+    --poisson_request_interval_generator_config_qps 100 \
+    --synthetic_request_generator_config_num_requests 4 \
+    --length_generator_config_type fixed \
+    --fixed_request_length_generator_config_prefill_tokens 100 \
+    --fixed_request_length_generator_config_decode_tokens 8 \
+    --trace_request_length_generator_config_trace_file ./data/processed_traces/splitwise_conv.csv \
+    --random_forrest_execution_time_predictor_config_backend aicb \
+    --metrics_config_output_dir examples/vidur-ali-scenarios/simulator_output \
+    --cluster_config_num_replicas 8 \
+    --replica_config_pd_node_ratio 0.25 \
+    --replica_config_num_prefill_replicas 2 \
+    --global_scheduler_config_type split_wise \
+    --replica_scheduler_config_type split_wise \
+    --replica_config_model_name qwen3-next-80B \
+    --replica_config_tensor_parallel_size 1 \
+    --replica_config_num_pipeline_stages 1 \
+    --replica_config_prefill_tensor_parallel_size 1 \
+    --replica_config_prefill_num_pipeline_stages 1 \
+    --replica_config_decode_tensor_parallel_size 1 \
+    --replica_config_decode_num_pipeline_stages 1
+```
+
+**Scenario 3: DeepSeek-671B with PD Disaggregation (tp=8, EP=auto, split_wise)**
+
+```bash
+python -m vidur.main \
+    --replica_config_pd_p2p_comm_bandwidth 800 \
+    --replica_config_nvlink_bandwidth 1600 \
+    --replica_config_rdma_bandwidth 800 \
+    --replica_config_pd_p2p_comm_dtype fp8 \
+    --replica_config_network_device h20_dgx \
+    --replica_config_device h20 \
+    --request_generator_config_type synthetic \
+    --interval_generator_config_type poisson \
+    --poisson_request_interval_generator_config_qps 100 \
+    --synthetic_request_generator_config_num_requests 4 \
+    --length_generator_config_type fixed \
+    --fixed_request_length_generator_config_prefill_tokens 100 \
+    --fixed_request_length_generator_config_decode_tokens 8 \
+    --trace_request_length_generator_config_trace_file ./data/processed_traces/splitwise_conv.csv \
+    --random_forrest_execution_time_predictor_config_backend aicb \
+    --metrics_config_output_dir examples/vidur-ali-scenarios/simulator_output \
+    --cluster_config_num_replicas 8 \
+    --replica_config_pd_node_ratio 0.25 \
+    --global_scheduler_config_type split_wise \
+    --replica_scheduler_config_type split_wise \
+    --replica_config_model_name deepseek-671B \
+    --replica_config_tensor_parallel_size 8 \
+    --replica_config_num_pipeline_stages 1
+```
+
+**Scenario 4: Qwen3-MoE-235B with PD Disaggregation (tp=4, EP=auto, split_wise)**
+
+```bash
+python -m vidur.main \
+    --replica_config_pd_p2p_comm_bandwidth 800 \
+    --replica_config_nvlink_bandwidth 1600 \
+    --replica_config_rdma_bandwidth 800 \
+    --replica_config_pd_p2p_comm_dtype fp8 \
+    --replica_config_network_device h20_dgx \
+    --replica_config_device h20 \
+    --request_generator_config_type synthetic \
+    --interval_generator_config_type poisson \
+    --poisson_request_interval_generator_config_qps 100 \
+    --synthetic_request_generator_config_num_requests 4 \
+    --length_generator_config_type fixed \
+    --fixed_request_length_generator_config_prefill_tokens 100 \
+    --fixed_request_length_generator_config_decode_tokens 8 \
+    --trace_request_length_generator_config_trace_file ./data/processed_traces/splitwise_conv.csv \
+    --random_forrest_execution_time_predictor_config_backend aicb \
+    --metrics_config_output_dir examples/vidur-ali-scenarios/simulator_output \
+    --cluster_config_num_replicas 8 \
+    --replica_config_pd_node_ratio 0.25 \
+    --global_scheduler_config_type split_wise \
+    --replica_scheduler_config_type split_wise \
+    --replica_config_model_name qwen3-moe-235B \
+    --replica_config_tensor_parallel_size 4 \
+    --replica_config_num_pipeline_stages 1
+```
+
 #### Output Files
 
 **Output path depends on how you run the simulation:**
