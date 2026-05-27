@@ -1,0 +1,12 @@
+The simulator with ns3 takes three parameters. All three files should match each other
+1. workload file that defines parallelization strategy
+2. a text file that defines a topology
+3. system configuration
+to make it run
+
+Topo generation
+
+
+Run simulation
+AS_LOG_LEVEL=DEBUG AS_SEND_LAT=3 AS_NVLS_ENABLE=1 ./bin/SimAI_simulator   -t 16   -w ./workloads/microAllReduce_simple.txt   -n ./topos/Simple_4g_2gps_200Gbps_H100   -c astra-sim-alibabacloud/inputs/config/SimAI.conf
+AS_LOG_LEVEL=DEBUG AS_SEND_LAT=3 AS_NVLS_ENABLE=0 ./bin/SimAI_simulator   -t 16   -w ./workloads/microAllReduce_FatTree.txt   -n ./topos/FatTree_16g_2gps_200Gbps_H100   -c astra-sim-alibabacloud/inputs/config/SimAI.conf
