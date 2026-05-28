@@ -53,7 +53,9 @@ int AnalyticalNetWork::sim_send(
     AstraSim::sim_request* request,
     void (*msg_handler)(void* fun_arg),
     void* fun_arg) {
-
+  AstraSim::timespec_t delay;
+  delay.time_val = 0;
+  sim_schedule(delay, msg_handler, fun_arg);
   return 0;
 }
 
@@ -66,6 +68,8 @@ int AnalyticalNetWork::sim_recv(
     AstraSim::sim_request* request,
     void (*msg_handler)(void* fun_arg),
     void* fun_arg) {
-
+  AstraSim::timespec_t delay;
+  delay.time_val = 0;
+  sim_schedule(delay, msg_handler, fun_arg);
   return 0;
 }

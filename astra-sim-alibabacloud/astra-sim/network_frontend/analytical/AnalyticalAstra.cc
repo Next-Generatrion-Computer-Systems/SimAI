@@ -71,7 +71,7 @@ int main(int argc,char *argv[]) {
     std::cerr << "-h,     --help              Help message" << std::endl;
     return -1;
   }
-  param->mode = ModeType::ANALYTICAL;
+  param->mode = ModeType::MOCKNCCL;
   physical_dims = {param->gpus};
   // AnaInit(argc, argv);
   uint32_t using_num_gpus = 0;
