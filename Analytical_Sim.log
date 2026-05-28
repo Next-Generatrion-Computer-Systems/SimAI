@@ -1,0 +1,316 @@
+[2026-05-28 00:48:37][DEBUG] [70fcd8870740]try_register_event EventType 18 
+[2026-05-28 00:48:37][DEBUG] [70fcd8870740] Sys::handleEvent EventType::CallEvents
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]try_register_event EventType 18 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] Sys::handleEvent EventType::CallEvents
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]rank 0 generate FlowModels
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]rank 0 NcclMock generate  8 channel and flow model count:  224
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  0,  0 to  1 current_flow_id 0 prev rank:  7 parent_flow_id:  -1 child_flow_id:  9 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  7,  7 to  0 current_flow_id 7 prev rank:  6 parent_flow_id:  -1 child_flow_id:  8 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  8,  0 to  1 current_flow_id 8 prev rank:  7 parent_flow_id:  7 child_flow_id:  17 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  15,  7 to  0 current_flow_id 15 prev rank:  6 parent_flow_id:  6 child_flow_id:  16 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  16,  0 to  1 current_flow_id 16 prev rank:  7 parent_flow_id:  15 child_flow_id:  25 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  23,  7 to  0 current_flow_id 23 prev rank:  6 parent_flow_id:  14 child_flow_id:  24 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  24,  0 to  1 current_flow_id 24 prev rank:  7 parent_flow_id:  23 child_flow_id:  33 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  31,  7 to  0 current_flow_id 31 prev rank:  6 parent_flow_id:  22 child_flow_id:  32 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  32,  0 to  1 current_flow_id 32 prev rank:  7 parent_flow_id:  31 child_flow_id:  41 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  39,  7 to  0 current_flow_id 39 prev rank:  6 parent_flow_id:  30 child_flow_id:  40 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  40,  0 to  1 current_flow_id 40 prev rank:  7 parent_flow_id:  39 child_flow_id:  49 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  47,  7 to  0 current_flow_id 47 prev rank:  6 parent_flow_id:  38 child_flow_id:  48 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  48,  0 to  1 current_flow_id 48 prev rank:  7 parent_flow_id:  47 child_flow_id:  57 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  55,  7 to  0 current_flow_id 55 prev rank:  6 parent_flow_id:  46 child_flow_id:  56 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  56,  0 to  1 current_flow_id 56 prev rank:  7 parent_flow_id:  55 child_flow_id:  65 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  63,  7 to  0 current_flow_id 63 prev rank:  6 parent_flow_id:  54 child_flow_id:  64 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  64,  0 to  1 current_flow_id 64 prev rank:  7 parent_flow_id:  63 child_flow_id:  73 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  71,  7 to  0 current_flow_id 71 prev rank:  6 parent_flow_id:  62 child_flow_id:  72 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  72,  0 to  1 current_flow_id 72 prev rank:  7 parent_flow_id:  71 child_flow_id:  81 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  79,  7 to  0 current_flow_id 79 prev rank:  6 parent_flow_id:  70 child_flow_id:  80 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  80,  0 to  1 current_flow_id 80 prev rank:  7 parent_flow_id:  79 child_flow_id:  89 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  87,  7 to  0 current_flow_id 87 prev rank:  6 parent_flow_id:  78 child_flow_id:  88 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  88,  0 to  1 current_flow_id 88 prev rank:  7 parent_flow_id:  87 child_flow_id:  97 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  95,  7 to  0 current_flow_id 95 prev rank:  6 parent_flow_id:  86 child_flow_id:  96 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  96,  0 to  1 current_flow_id 96 prev rank:  7 parent_flow_id:  95 child_flow_id:  105 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  103,  7 to  0 current_flow_id 103 prev rank:  6 parent_flow_id:  94 child_flow_id:  104 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  104,  0 to  1 current_flow_id 104 prev rank:  7 parent_flow_id:  103 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 0,  111,  7 to  0 current_flow_id 111 prev rank:  6 parent_flow_id:  102 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  112,  0 to  1 current_flow_id 112 prev rank:  7 parent_flow_id:  -1 child_flow_id:  121 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  119,  7 to  0 current_flow_id 119 prev rank:  6 parent_flow_id:  -1 child_flow_id:  120 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  120,  0 to  1 current_flow_id 120 prev rank:  7 parent_flow_id:  119 child_flow_id:  129 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  127,  7 to  0 current_flow_id 127 prev rank:  6 parent_flow_id:  118 child_flow_id:  128 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  128,  0 to  1 current_flow_id 128 prev rank:  7 parent_flow_id:  127 child_flow_id:  137 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  135,  7 to  0 current_flow_id 135 prev rank:  6 parent_flow_id:  126 child_flow_id:  136 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  136,  0 to  1 current_flow_id 136 prev rank:  7 parent_flow_id:  135 child_flow_id:  145 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  143,  7 to  0 current_flow_id 143 prev rank:  6 parent_flow_id:  134 child_flow_id:  144 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  144,  0 to  1 current_flow_id 144 prev rank:  7 parent_flow_id:  143 child_flow_id:  153 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  151,  7 to  0 current_flow_id 151 prev rank:  6 parent_flow_id:  142 child_flow_id:  152 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  152,  0 to  1 current_flow_id 152 prev rank:  7 parent_flow_id:  151 child_flow_id:  161 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  159,  7 to  0 current_flow_id 159 prev rank:  6 parent_flow_id:  150 child_flow_id:  160 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  160,  0 to  1 current_flow_id 160 prev rank:  7 parent_flow_id:  159 child_flow_id:  169 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  167,  7 to  0 current_flow_id 167 prev rank:  6 parent_flow_id:  158 child_flow_id:  168 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  168,  0 to  1 current_flow_id 168 prev rank:  7 parent_flow_id:  167 child_flow_id:  177 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  175,  7 to  0 current_flow_id 175 prev rank:  6 parent_flow_id:  166 child_flow_id:  176 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  176,  0 to  1 current_flow_id 176 prev rank:  7 parent_flow_id:  175 child_flow_id:  185 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  183,  7 to  0 current_flow_id 183 prev rank:  6 parent_flow_id:  174 child_flow_id:  184 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  184,  0 to  1 current_flow_id 184 prev rank:  7 parent_flow_id:  183 child_flow_id:  193 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  191,  7 to  0 current_flow_id 191 prev rank:  6 parent_flow_id:  182 child_flow_id:  192 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  192,  0 to  1 current_flow_id 192 prev rank:  7 parent_flow_id:  191 child_flow_id:  201 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  199,  7 to  0 current_flow_id 199 prev rank:  6 parent_flow_id:  190 child_flow_id:  200 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  200,  0 to  1 current_flow_id 200 prev rank:  7 parent_flow_id:  199 child_flow_id:  209 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  207,  7 to  0 current_flow_id 207 prev rank:  6 parent_flow_id:  198 child_flow_id:  208 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  208,  0 to  1 current_flow_id 208 prev rank:  7 parent_flow_id:  207 child_flow_id:  217 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  215,  7 to  0 current_flow_id 215 prev rank:  6 parent_flow_id:  206 child_flow_id:  216 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  216,  0 to  1 current_flow_id 216 prev rank:  7 parent_flow_id:  215 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 1,  223,  7 to  0 current_flow_id 223 prev rank:  6 parent_flow_id:  214 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  224,  0 to  1 current_flow_id 224 prev rank:  7 parent_flow_id:  -1 child_flow_id:  233 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  231,  7 to  0 current_flow_id 231 prev rank:  6 parent_flow_id:  -1 child_flow_id:  232 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  232,  0 to  1 current_flow_id 232 prev rank:  7 parent_flow_id:  231 child_flow_id:  241 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  239,  7 to  0 current_flow_id 239 prev rank:  6 parent_flow_id:  230 child_flow_id:  240 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  240,  0 to  1 current_flow_id 240 prev rank:  7 parent_flow_id:  239 child_flow_id:  249 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  247,  7 to  0 current_flow_id 247 prev rank:  6 parent_flow_id:  238 child_flow_id:  248 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  248,  0 to  1 current_flow_id 248 prev rank:  7 parent_flow_id:  247 child_flow_id:  257 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  255,  7 to  0 current_flow_id 255 prev rank:  6 parent_flow_id:  246 child_flow_id:  256 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  256,  0 to  1 current_flow_id 256 prev rank:  7 parent_flow_id:  255 child_flow_id:  265 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  263,  7 to  0 current_flow_id 263 prev rank:  6 parent_flow_id:  254 child_flow_id:  264 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  264,  0 to  1 current_flow_id 264 prev rank:  7 parent_flow_id:  263 child_flow_id:  273 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  271,  7 to  0 current_flow_id 271 prev rank:  6 parent_flow_id:  262 child_flow_id:  272 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  272,  0 to  1 current_flow_id 272 prev rank:  7 parent_flow_id:  271 child_flow_id:  281 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  279,  7 to  0 current_flow_id 279 prev rank:  6 parent_flow_id:  270 child_flow_id:  280 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  280,  0 to  1 current_flow_id 280 prev rank:  7 parent_flow_id:  279 child_flow_id:  289 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  287,  7 to  0 current_flow_id 287 prev rank:  6 parent_flow_id:  278 child_flow_id:  288 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  288,  0 to  1 current_flow_id 288 prev rank:  7 parent_flow_id:  287 child_flow_id:  297 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  295,  7 to  0 current_flow_id 295 prev rank:  6 parent_flow_id:  286 child_flow_id:  296 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  296,  0 to  1 current_flow_id 296 prev rank:  7 parent_flow_id:  295 child_flow_id:  305 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  303,  7 to  0 current_flow_id 303 prev rank:  6 parent_flow_id:  294 child_flow_id:  304 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  304,  0 to  1 current_flow_id 304 prev rank:  7 parent_flow_id:  303 child_flow_id:  313 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  311,  7 to  0 current_flow_id 311 prev rank:  6 parent_flow_id:  302 child_flow_id:  312 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  312,  0 to  1 current_flow_id 312 prev rank:  7 parent_flow_id:  311 child_flow_id:  321 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  319,  7 to  0 current_flow_id 319 prev rank:  6 parent_flow_id:  310 child_flow_id:  320 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  320,  0 to  1 current_flow_id 320 prev rank:  7 parent_flow_id:  319 child_flow_id:  329 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  327,  7 to  0 current_flow_id 327 prev rank:  6 parent_flow_id:  318 child_flow_id:  328 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  328,  0 to  1 current_flow_id 328 prev rank:  7 parent_flow_id:  327 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 2,  335,  7 to  0 current_flow_id 335 prev rank:  6 parent_flow_id:  326 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  336,  0 to  1 current_flow_id 336 prev rank:  7 parent_flow_id:  -1 child_flow_id:  345 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  343,  7 to  0 current_flow_id 343 prev rank:  6 parent_flow_id:  -1 child_flow_id:  344 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  344,  0 to  1 current_flow_id 344 prev rank:  7 parent_flow_id:  343 child_flow_id:  353 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  351,  7 to  0 current_flow_id 351 prev rank:  6 parent_flow_id:  342 child_flow_id:  352 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  352,  0 to  1 current_flow_id 352 prev rank:  7 parent_flow_id:  351 child_flow_id:  361 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  359,  7 to  0 current_flow_id 359 prev rank:  6 parent_flow_id:  350 child_flow_id:  360 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  360,  0 to  1 current_flow_id 360 prev rank:  7 parent_flow_id:  359 child_flow_id:  369 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  367,  7 to  0 current_flow_id 367 prev rank:  6 parent_flow_id:  358 child_flow_id:  368 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  368,  0 to  1 current_flow_id 368 prev rank:  7 parent_flow_id:  367 child_flow_id:  377 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  375,  7 to  0 current_flow_id 375 prev rank:  6 parent_flow_id:  366 child_flow_id:  376 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  376,  0 to  1 current_flow_id 376 prev rank:  7 parent_flow_id:  375 child_flow_id:  385 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  383,  7 to  0 current_flow_id 383 prev rank:  6 parent_flow_id:  374 child_flow_id:  384 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  384,  0 to  1 current_flow_id 384 prev rank:  7 parent_flow_id:  383 child_flow_id:  393 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  391,  7 to  0 current_flow_id 391 prev rank:  6 parent_flow_id:  382 child_flow_id:  392 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  392,  0 to  1 current_flow_id 392 prev rank:  7 parent_flow_id:  391 child_flow_id:  401 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  399,  7 to  0 current_flow_id 399 prev rank:  6 parent_flow_id:  390 child_flow_id:  400 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  400,  0 to  1 current_flow_id 400 prev rank:  7 parent_flow_id:  399 child_flow_id:  409 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  407,  7 to  0 current_flow_id 407 prev rank:  6 parent_flow_id:  398 child_flow_id:  408 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  408,  0 to  1 current_flow_id 408 prev rank:  7 parent_flow_id:  407 child_flow_id:  417 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  415,  7 to  0 current_flow_id 415 prev rank:  6 parent_flow_id:  406 child_flow_id:  416 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  416,  0 to  1 current_flow_id 416 prev rank:  7 parent_flow_id:  415 child_flow_id:  425 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  423,  7 to  0 current_flow_id 423 prev rank:  6 parent_flow_id:  414 child_flow_id:  424 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  424,  0 to  1 current_flow_id 424 prev rank:  7 parent_flow_id:  423 child_flow_id:  433 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  431,  7 to  0 current_flow_id 431 prev rank:  6 parent_flow_id:  422 child_flow_id:  432 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  432,  0 to  1 current_flow_id 432 prev rank:  7 parent_flow_id:  431 child_flow_id:  441 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  439,  7 to  0 current_flow_id 439 prev rank:  6 parent_flow_id:  430 child_flow_id:  440 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  440,  0 to  1 current_flow_id 440 prev rank:  7 parent_flow_id:  439 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 3,  447,  7 to  0 current_flow_id 447 prev rank:  6 parent_flow_id:  438 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  448,  0 to  1 current_flow_id 448 prev rank:  7 parent_flow_id:  -1 child_flow_id:  457 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  455,  7 to  0 current_flow_id 455 prev rank:  6 parent_flow_id:  -1 child_flow_id:  456 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  456,  0 to  1 current_flow_id 456 prev rank:  7 parent_flow_id:  455 child_flow_id:  465 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  463,  7 to  0 current_flow_id 463 prev rank:  6 parent_flow_id:  454 child_flow_id:  464 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  464,  0 to  1 current_flow_id 464 prev rank:  7 parent_flow_id:  463 child_flow_id:  473 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  471,  7 to  0 current_flow_id 471 prev rank:  6 parent_flow_id:  462 child_flow_id:  472 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  472,  0 to  1 current_flow_id 472 prev rank:  7 parent_flow_id:  471 child_flow_id:  481 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  479,  7 to  0 current_flow_id 479 prev rank:  6 parent_flow_id:  470 child_flow_id:  480 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  480,  0 to  1 current_flow_id 480 prev rank:  7 parent_flow_id:  479 child_flow_id:  489 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  487,  7 to  0 current_flow_id 487 prev rank:  6 parent_flow_id:  478 child_flow_id:  488 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  488,  0 to  1 current_flow_id 488 prev rank:  7 parent_flow_id:  487 child_flow_id:  497 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  495,  7 to  0 current_flow_id 495 prev rank:  6 parent_flow_id:  486 child_flow_id:  496 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  496,  0 to  1 current_flow_id 496 prev rank:  7 parent_flow_id:  495 child_flow_id:  505 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  503,  7 to  0 current_flow_id 503 prev rank:  6 parent_flow_id:  494 child_flow_id:  504 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  504,  0 to  1 current_flow_id 504 prev rank:  7 parent_flow_id:  503 child_flow_id:  513 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  511,  7 to  0 current_flow_id 511 prev rank:  6 parent_flow_id:  502 child_flow_id:  512 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  512,  0 to  1 current_flow_id 512 prev rank:  7 parent_flow_id:  511 child_flow_id:  521 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  519,  7 to  0 current_flow_id 519 prev rank:  6 parent_flow_id:  510 child_flow_id:  520 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  520,  0 to  1 current_flow_id 520 prev rank:  7 parent_flow_id:  519 child_flow_id:  529 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  527,  7 to  0 current_flow_id 527 prev rank:  6 parent_flow_id:  518 child_flow_id:  528 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  528,  0 to  1 current_flow_id 528 prev rank:  7 parent_flow_id:  527 child_flow_id:  537 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  535,  7 to  0 current_flow_id 535 prev rank:  6 parent_flow_id:  526 child_flow_id:  536 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  536,  0 to  1 current_flow_id 536 prev rank:  7 parent_flow_id:  535 child_flow_id:  545 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  543,  7 to  0 current_flow_id 543 prev rank:  6 parent_flow_id:  534 child_flow_id:  544 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  544,  0 to  1 current_flow_id 544 prev rank:  7 parent_flow_id:  543 child_flow_id:  553 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  551,  7 to  0 current_flow_id 551 prev rank:  6 parent_flow_id:  542 child_flow_id:  552 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  552,  0 to  1 current_flow_id 552 prev rank:  7 parent_flow_id:  551 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 4,  559,  7 to  0 current_flow_id 559 prev rank:  6 parent_flow_id:  550 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  560,  0 to  1 current_flow_id 560 prev rank:  7 parent_flow_id:  -1 child_flow_id:  569 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  567,  7 to  0 current_flow_id 567 prev rank:  6 parent_flow_id:  -1 child_flow_id:  568 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  568,  0 to  1 current_flow_id 568 prev rank:  7 parent_flow_id:  567 child_flow_id:  577 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  575,  7 to  0 current_flow_id 575 prev rank:  6 parent_flow_id:  566 child_flow_id:  576 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  576,  0 to  1 current_flow_id 576 prev rank:  7 parent_flow_id:  575 child_flow_id:  585 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  583,  7 to  0 current_flow_id 583 prev rank:  6 parent_flow_id:  574 child_flow_id:  584 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  584,  0 to  1 current_flow_id 584 prev rank:  7 parent_flow_id:  583 child_flow_id:  593 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  591,  7 to  0 current_flow_id 591 prev rank:  6 parent_flow_id:  582 child_flow_id:  592 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  592,  0 to  1 current_flow_id 592 prev rank:  7 parent_flow_id:  591 child_flow_id:  601 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  599,  7 to  0 current_flow_id 599 prev rank:  6 parent_flow_id:  590 child_flow_id:  600 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  600,  0 to  1 current_flow_id 600 prev rank:  7 parent_flow_id:  599 child_flow_id:  609 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  607,  7 to  0 current_flow_id 607 prev rank:  6 parent_flow_id:  598 child_flow_id:  608 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  608,  0 to  1 current_flow_id 608 prev rank:  7 parent_flow_id:  607 child_flow_id:  617 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  615,  7 to  0 current_flow_id 615 prev rank:  6 parent_flow_id:  606 child_flow_id:  616 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  616,  0 to  1 current_flow_id 616 prev rank:  7 parent_flow_id:  615 child_flow_id:  625 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  623,  7 to  0 current_flow_id 623 prev rank:  6 parent_flow_id:  614 child_flow_id:  624 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  624,  0 to  1 current_flow_id 624 prev rank:  7 parent_flow_id:  623 child_flow_id:  633 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  631,  7 to  0 current_flow_id 631 prev rank:  6 parent_flow_id:  622 child_flow_id:  632 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  632,  0 to  1 current_flow_id 632 prev rank:  7 parent_flow_id:  631 child_flow_id:  641 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  639,  7 to  0 current_flow_id 639 prev rank:  6 parent_flow_id:  630 child_flow_id:  640 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  640,  0 to  1 current_flow_id 640 prev rank:  7 parent_flow_id:  639 child_flow_id:  649 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  647,  7 to  0 current_flow_id 647 prev rank:  6 parent_flow_id:  638 child_flow_id:  648 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  648,  0 to  1 current_flow_id 648 prev rank:  7 parent_flow_id:  647 child_flow_id:  657 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  655,  7 to  0 current_flow_id 655 prev rank:  6 parent_flow_id:  646 child_flow_id:  656 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  656,  0 to  1 current_flow_id 656 prev rank:  7 parent_flow_id:  655 child_flow_id:  665 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  663,  7 to  0 current_flow_id 663 prev rank:  6 parent_flow_id:  654 child_flow_id:  664 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  664,  0 to  1 current_flow_id 664 prev rank:  7 parent_flow_id:  663 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 5,  671,  7 to  0 current_flow_id 671 prev rank:  6 parent_flow_id:  662 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  672,  0 to  1 current_flow_id 672 prev rank:  7 parent_flow_id:  -1 child_flow_id:  681 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  679,  7 to  0 current_flow_id 679 prev rank:  6 parent_flow_id:  -1 child_flow_id:  680 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  680,  0 to  1 current_flow_id 680 prev rank:  7 parent_flow_id:  679 child_flow_id:  689 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  687,  7 to  0 current_flow_id 687 prev rank:  6 parent_flow_id:  678 child_flow_id:  688 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  688,  0 to  1 current_flow_id 688 prev rank:  7 parent_flow_id:  687 child_flow_id:  697 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  695,  7 to  0 current_flow_id 695 prev rank:  6 parent_flow_id:  686 child_flow_id:  696 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  696,  0 to  1 current_flow_id 696 prev rank:  7 parent_flow_id:  695 child_flow_id:  705 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  703,  7 to  0 current_flow_id 703 prev rank:  6 parent_flow_id:  694 child_flow_id:  704 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  704,  0 to  1 current_flow_id 704 prev rank:  7 parent_flow_id:  703 child_flow_id:  713 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  711,  7 to  0 current_flow_id 711 prev rank:  6 parent_flow_id:  702 child_flow_id:  712 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  712,  0 to  1 current_flow_id 712 prev rank:  7 parent_flow_id:  711 child_flow_id:  721 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  719,  7 to  0 current_flow_id 719 prev rank:  6 parent_flow_id:  710 child_flow_id:  720 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  720,  0 to  1 current_flow_id 720 prev rank:  7 parent_flow_id:  719 child_flow_id:  729 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  727,  7 to  0 current_flow_id 727 prev rank:  6 parent_flow_id:  718 child_flow_id:  728 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  728,  0 to  1 current_flow_id 728 prev rank:  7 parent_flow_id:  727 child_flow_id:  737 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  735,  7 to  0 current_flow_id 735 prev rank:  6 parent_flow_id:  726 child_flow_id:  736 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  736,  0 to  1 current_flow_id 736 prev rank:  7 parent_flow_id:  735 child_flow_id:  745 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  743,  7 to  0 current_flow_id 743 prev rank:  6 parent_flow_id:  734 child_flow_id:  744 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  744,  0 to  1 current_flow_id 744 prev rank:  7 parent_flow_id:  743 child_flow_id:  753 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  751,  7 to  0 current_flow_id 751 prev rank:  6 parent_flow_id:  742 child_flow_id:  752 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  752,  0 to  1 current_flow_id 752 prev rank:  7 parent_flow_id:  751 child_flow_id:  761 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  759,  7 to  0 current_flow_id 759 prev rank:  6 parent_flow_id:  750 child_flow_id:  760 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  760,  0 to  1 current_flow_id 760 prev rank:  7 parent_flow_id:  759 child_flow_id:  769 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  767,  7 to  0 current_flow_id 767 prev rank:  6 parent_flow_id:  758 child_flow_id:  768 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  768,  0 to  1 current_flow_id 768 prev rank:  7 parent_flow_id:  767 child_flow_id:  777 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  775,  7 to  0 current_flow_id 775 prev rank:  6 parent_flow_id:  766 child_flow_id:  776 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  776,  0 to  1 current_flow_id 776 prev rank:  7 parent_flow_id:  775 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 6,  783,  7 to  0 current_flow_id 783 prev rank:  6 parent_flow_id:  774 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  784,  0 to  1 current_flow_id 784 prev rank:  7 parent_flow_id:  -1 child_flow_id:  793 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  791,  7 to  0 current_flow_id 791 prev rank:  6 parent_flow_id:  -1 child_flow_id:  792 chunk_id:  0 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  792,  0 to  1 current_flow_id 792 prev rank:  7 parent_flow_id:  791 child_flow_id:  801 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  799,  7 to  0 current_flow_id 799 prev rank:  6 parent_flow_id:  790 child_flow_id:  800 chunk_id:  1 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  800,  0 to  1 current_flow_id 800 prev rank:  7 parent_flow_id:  799 child_flow_id:  809 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  807,  7 to  0 current_flow_id 807 prev rank:  6 parent_flow_id:  798 child_flow_id:  808 chunk_id:  2 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  808,  0 to  1 current_flow_id 808 prev rank:  7 parent_flow_id:  807 child_flow_id:  817 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  815,  7 to  0 current_flow_id 815 prev rank:  6 parent_flow_id:  806 child_flow_id:  816 chunk_id:  3 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  816,  0 to  1 current_flow_id 816 prev rank:  7 parent_flow_id:  815 child_flow_id:  825 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  823,  7 to  0 current_flow_id 823 prev rank:  6 parent_flow_id:  814 child_flow_id:  824 chunk_id:  4 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  824,  0 to  1 current_flow_id 824 prev rank:  7 parent_flow_id:  823 child_flow_id:  833 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  831,  7 to  0 current_flow_id 831 prev rank:  6 parent_flow_id:  822 child_flow_id:  832 chunk_id:  5 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  832,  0 to  1 current_flow_id 832 prev rank:  7 parent_flow_id:  831 child_flow_id:  841 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  839,  7 to  0 current_flow_id 839 prev rank:  6 parent_flow_id:  830 child_flow_id:  840 chunk_id:  6 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  840,  0 to  1 current_flow_id 840 prev rank:  7 parent_flow_id:  839 child_flow_id:  849 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  847,  7 to  0 current_flow_id 847 prev rank:  6 parent_flow_id:  838 child_flow_id:  848 chunk_id:  7 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  848,  0 to  1 current_flow_id 848 prev rank:  7 parent_flow_id:  847 child_flow_id:  857 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  855,  7 to  0 current_flow_id 855 prev rank:  6 parent_flow_id:  846 child_flow_id:  856 chunk_id:  8 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  856,  0 to  1 current_flow_id 856 prev rank:  7 parent_flow_id:  855 child_flow_id:  865 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  863,  7 to  0 current_flow_id 863 prev rank:  6 parent_flow_id:  854 child_flow_id:  864 chunk_id:  9 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  864,  0 to  1 current_flow_id 864 prev rank:  7 parent_flow_id:  863 child_flow_id:  873 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  871,  7 to  0 current_flow_id 871 prev rank:  6 parent_flow_id:  862 child_flow_id:  872 chunk_id:  10 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  872,  0 to  1 current_flow_id 872 prev rank:  7 parent_flow_id:  871 child_flow_id:  881 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  879,  7 to  0 current_flow_id 879 prev rank:  6 parent_flow_id:  870 child_flow_id:  880 chunk_id:  11 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  880,  0 to  1 current_flow_id 880 prev rank:  7 parent_flow_id:  879 child_flow_id:  889 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  887,  7 to  0 current_flow_id 887 prev rank:  6 parent_flow_id:  878 child_flow_id:  888 chunk_id:  12 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  888,  0 to  1 current_flow_id 888 prev rank:  7 parent_flow_id:  887 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] 7,  895,  7 to  0 current_flow_id 895 prev rank:  6 parent_flow_id:  886 child_flow_id:  -1 chunk_id:  13 flow_size: 262144 chunk_count:  14 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]Sys.cc::schedule num 100000000 ready_list_size 1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]proceed_to_next_vnet_baseline :: phase1, stream->current_queue_id -1 stream->phases_to_go.size 1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]proceed_to_next_vnet_baseline :: phase2
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]proceed_to_next_vnet_baseline :: phase2-1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]proceed_to_next_vnet_baseline :: phase3
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]proceed_to_next_vnet_baseline :: phase1, stream->current_queue_id 0 stream->phases_to_go.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]proceed_to_next_vnet_baseline :: phase4
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] > 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]try_register_event EventType 24 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 finish release_packets
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] : 0 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] > 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]try_register_event EventType 24 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 finish release_packets
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] : 0 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] > 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]try_register_event EventType 24 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 finish release_packets
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] : 0 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] > 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]try_register_event EventType 24 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 finish release_packets
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] : 0 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] > 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]try_register_event EventType 24 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 finish release_packets
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] : 0 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] > 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]try_register_event EventType 24 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 finish release_packets
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] : 0 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] > 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]try_register_event EventType 24 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 finish release_packets
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] : 0 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] > 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]try_register_event EventType 24 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 finish release_packets
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]id:  0 (*zero_latency_packets)[channel_id] : 0 
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]StreamBaseline::algorithm->run finished
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]Sys::SchedulerUnit::notify_stream_added finished
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]proceed_to_next_vnet_baseline :: exit
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]Sys::shedule finished
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]Sys::generate_collective finished
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]Fwd_Comm_Finished set_notifier success
+[2026-05-28 00:56:50][DEBUG] [743c0e089740] Sys::handleEvent EventType::CallEvents
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]packet bundle call
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]packet bundle call
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]packet bundle call
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]packet bundle call
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]packet bundle call
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]packet bundle call
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]packet bundle call
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]packet bundle call
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketReceived sender_node:  -1 recevier  -1 current_flow id:  -1 channel_id:  0 tag_id  0 free_packets  -1 next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketSentFinshed src -1 dst -1 channel_id -1 flow_id -1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]NcclTreeFlowModel::process_stream_count channel_id -1 _stream_count 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketReceived sender_node:  -1 recevier  -1 current_flow id:  -1 channel_id:  1 tag_id  14 free_packets  -1 next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketSentFinshed src -1 dst -1 channel_id -1 flow_id -1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]NcclTreeFlowModel::process_stream_count channel_id -1 _stream_count 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketReceived sender_node:  -1 recevier  -1 current_flow id:  -1 channel_id:  2 tag_id  28 free_packets  -1 next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketSentFinshed src -1 dst -1 channel_id -1 flow_id -1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]NcclTreeFlowModel::process_stream_count channel_id -1 _stream_count 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketReceived sender_node:  -1 recevier  -1 current_flow id:  -1 channel_id:  3 tag_id  42 free_packets  -1 next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketSentFinshed src -1 dst -1 channel_id -1 flow_id -1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]NcclTreeFlowModel::process_stream_count channel_id -1 _stream_count 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketReceived sender_node:  -1 recevier  -1 current_flow id:  -1 channel_id:  4 tag_id  56 free_packets  -1 next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketSentFinshed src -1 dst -1 channel_id -1 flow_id -1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]NcclTreeFlowModel::process_stream_count channel_id -1 _stream_count 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketReceived sender_node:  -1 recevier  -1 current_flow id:  -1 channel_id:  5 tag_id  70 free_packets  -1 next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketSentFinshed src -1 dst -1 channel_id -1 flow_id -1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]NcclTreeFlowModel::process_stream_count channel_id -1 _stream_count 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketReceived sender_node:  -1 recevier  -1 current_flow id:  -1 channel_id:  6 tag_id  84 free_packets  -1 next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketSentFinshed src -1 dst -1 channel_id -1 flow_id -1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]NcclTreeFlowModel::process_stream_count channel_id -1 _stream_count 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketReceived sender_node:  -1 recevier  -1 current_flow id:  -1 channel_id:  7 tag_id  98 free_packets  -1 next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]next_flow_list.size 0
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]PacketSentFinshed src -1 dst -1 channel_id -1 flow_id -1
+[2026-05-28 00:56:50][DEBUG] [743c0e089740]NcclTreeFlowModel::process_stream_count channel_id -1 _stream_count 0
