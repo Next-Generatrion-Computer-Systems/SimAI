@@ -103,6 +103,7 @@ int main(int argc,char *argv[]) {
   
   
   AnalyticalNetWork *analytical_network = new AnalyticalNetWork(0);
+  MockNcclLog::set_log_name("Analytical_Sim.log");
   AstraSim::Sys *systems = new AstraSim::Sys(
     analytical_network,
     nullptr,
