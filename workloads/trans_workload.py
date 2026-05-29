@@ -231,7 +231,7 @@ def main():
     args = p.parse_args()
 
     parameters = {
-        'simai_input': './None-gpt_7B-world_size8-tp4-pp1-ep1-gbs16-mbs1-seq2048-MOE-False-GEMM-False-flash_attn'
+        'simai_input': './workloads/None-gpt_7B-world_size8-tp4-pp1-ep1-gbs16-mbs1-seq2048-MOE-False-GEMM-False-flash_attn'
                        '-False.txt',
         'out_flow': './test.txt',
         'bandwidth': 12.5e9,
