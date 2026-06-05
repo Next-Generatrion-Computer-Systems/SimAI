@@ -1,0 +1,45 @@
+# 命令记录
+
+生成原始工作负载所使用的命令如下（在 aicb 子目录下执行）：
+
+```bash
+python3 -m workload_generator.SimAI_training_workload_generator \
+  --world_size=32 \
+  --global_batch=64 \
+  --micro_batch=1 \
+  --num_layers=2 \
+  --num_attention_heads=32 \
+  --hidden_size=4096 \
+  --tensor_model_parallel_size=2 \
+  --pipeline_model_parallel=1 \
+  --expert_model_parallel_size=16 \
+  --num_experts=64 \
+  --moe_router_topk=2 \
+  --moe_enable \
+  --seq_length=4096 \
+  --swiglu \
+  --use_flash_attn \
+  --enable_sequence_parallel
+```
+
+python ./astra-sim-alibabacloud/inputs/topo/gen_Topo_Template.py --ro -g 64 -gps 8 -gt H100 -bw 400Gbps -psn 8
+
+
+  ./bin/SimAI_simulator \
+  -t 8 \
+  -w ./workloads/None-None-world_size32-tp2-pp1-ep16-gbs64-mbs1-seq4096-MOE-True-GEMM-False-flash_attn-True.txt \
+  -n ./topos/Rail_Opti_SingleToR_64g_8gps_400Gbps_H100 \
+  -c ./astra-sim-alibabacloud/inputs/config/SimAI.conf
+
+./bin/SimAI_simulator -t 8 -w ./workloads/None-None-world_size32-tp2-pp1-ep16-gbs64-mbs1-seq4096-MOE-True-GEMM-False-flash_attn-True.txt -n ./topos/Rail_Opti_SingleToR_64g_8gps_400Gbps_H100 -c ./astra-sim-alibabacloud/inputs/config/SimAI.conf
+
+
+./bin/SimAI_simulator \
+  -t 1 \
+  -w ./workloads/simplified_workload.txt \
+  -n ./topos/Rail_Opti_SingleToR_64g_8gps_400Gbps_H100 \
+  -c ./astra-sim-alibabacloud/inputs/config/SimAI.conf
+
+./bin/SimAI_simulator -t 1 -w ./workloads/simplified_workload.txt -n ./topos/Rail_Opti_SingleToR_64g_8gps_400Gbps_H100 -c ./astra-sim-alibabacloud/inputs/config/SimAI.conf
+
+

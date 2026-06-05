@@ -188,21 +188,29 @@ def draw_topology(file_path, output_image_path, mode='showcase'):
 
     # Resolve jobs info based on mode
     shared_links = set()
-    if mode == 'highlight':
-        job1_gpus, job1_links, job2_gpus, job2_links = get_ring_allreduce_info(gpu_per_server)
-        active_nv = {16, 17, 18}
-        active_asw = {20, 21, 22, 23}
-        active_psw = set()
-    elif mode == 'ep_cross_rail':
-        job1_gpus, job1_links, job2_gpus, job2_links = get_ep_cross_rail_info()
-        active_nv = set()
-        active_asw = {20, 21, 23}
-        active_psw = {24, 25}
-    elif mode == 'spine_collision':
-        job1_gpus, job1_links, job2_gpus, job2_links, shared_links = get_spine_collision_info()
-        active_nv = set()
-        active_asw = {20, 21, 23}
-        active_psw = {24}
+    if mode == 'moe_32g':
+        job1_gpus = set(range(32))
+        active_nv = set(nv_switch_ids[:4]) if len(nv_switch_ids) >= 4 else set(nv_switch_ids)
+        active_asw = set(asw_list)
+        active_psw = set(psw_list)
+        
+        job1_links = set()
+        # NVLinks for active servers
+        for u, v in nv_links:
+            if u in job1_gpus or v in job1_gpus:
+                job1_links.add((min(u, v), max(u, v)))
+        # NIC links for active GPUs
+        for r in range(gpu_per_server):
+            for u, v in nic_links[r]:
+                gpu_id = u if u in host_ids else v
+                if gpu_id in job1_gpus:
+                    job1_links.add((min(u, v), max(u, v)))
+        # Spine-leaf links
+        for u, v in spine_leaf_links:
+            job1_links.add((min(u, v), max(u, v)))
+            
+        job2_gpus = set()
+        job2_links = set()
     else:
         job1_gpus, job1_links, job2_gpus, job2_links = set(), set(), set(), set()
         active_nv, active_asw, active_psw = set(), set(), set()
@@ -416,6 +424,11 @@ def draw_topology(file_path, output_image_path, mode='showcase'):
             plt.Line2D([0], [0], color='#ef4444', lw=3.0, label='ECMP Link Collision (Uplink Shared)'),
             plt.Line2D([0], [0], color='#334155', lw=1.5, linestyle='--', alpha=0.6, label='Dimmed (Unused) Links'),
         ])
+    elif mode == 'moe_32g':
+        legend_elements.extend([
+            plt.Line2D([0], [0], color='#3b82f6', lw=2.5, label='Active MoE Job 0-31 Paths'),
+            plt.Line2D([0], [0], color='#334155', lw=1.5, linestyle='--', alpha=0.6, label='Dimmed (Unused) Links'),
+        ])
 
     ax.legend(
         handles=legend_elements,
@@ -460,6 +473,14 @@ def draw_topology(file_path, output_image_path, mode='showcase'):
             fontweight="bold",
             pad=20
         )
+    elif mode == 'moe_32g':
+        ax.set_title(
+            f"32-GPU MoE Workload Mapping on 64-GPU Rail-Optimized Network Topology",
+            color="#ffffff",
+            fontsize=16,
+            fontweight="bold",
+            pad=20
+        )
 
     plt.tight_layout()
     
@@ -472,16 +493,18 @@ def draw_topology(file_path, output_image_path, mode='showcase'):
     print(f"Topology saved successfully to {output_image_path}")
 
 if __name__ == "__main__":
-    topo_file = "topos/Rail_Opti_SingleToR_16g_4gps_400Gbps_H100"
-    
-    # 1. Showcase
-    draw_topology(topo_file, "topos/Rail_Opti_16g_4gps_topology.png", mode='showcase')
-    
-    # 2. Ring AllReduce
-    draw_topology(topo_file, "topos/Rail_Opti_16g_4gps_highlight.png", mode='highlight')
-    
-    # 3. EP Cross Rail
-    draw_topology(topo_file, "topos/Rail_Opti_16g_4gps_ep_cross_rail.png", mode='ep_cross_rail')
-    
-    # 4. Spine Collision
-    draw_topology(topo_file, "topos/Rail_Opti_16g_4gps_spine_collision.png", mode='spine_collision')
+    draw_topology("topos/Rail_Opti_SingleToR_64g_8gps_400Gbps_H100", "topos/Rail_Opti_64g_8gps_topology.png", mode='moe_32g')
+
+        # topo_file = "topos/Rail_Opti_SingleToR_16g_4gps_400Gbps_H100"
+        #
+        # # 1. Showcase
+        # draw_topology(topo_file, "topos/Rail_Opti_16g_4gps_topology.png", mode='showcase')
+        #
+        # # 2. Ring AllReduce
+        # draw_topology(topo_file, "topos/Rail_Opti_16g_4gps_highlight.png", mode='highlight')
+        #
+        # # 3. EP Cross Rail
+        # draw_topology(topo_file, "topos/Rail_Opti_16g_4gps_ep_cross_rail.png", mode='ep_cross_rail')
+        #
+        # # 4. Spine Collision
+        # draw_topology(topo_file, "topos/Rail_Opti_16g_4gps_spine_collision.png", mode='spine_collision')
