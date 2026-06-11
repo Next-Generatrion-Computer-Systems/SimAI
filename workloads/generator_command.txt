@@ -43,3 +43,4 @@ python ./astra-sim-alibabacloud/inputs/topo/gen_Topo_Template.py --ro -g 64 -gps
 ./bin/SimAI_simulator -t 1 -w ./workloads/simplified_workload.txt -n ./topos/Rail_Opti_SingleToR_64g_8gps_400Gbps_H100 -c ./astra-sim-alibabacloud/inputs/config/SimAI.conf
 
 
+python3 plot_link_bandwidth.py /etc/astra-sim/simulation/llama_hpn7_mix.tr topos/Rail_Opti_SingleToR_64g_8gps_400Gbps_H100 72 80 100.0 link_72_80.png
